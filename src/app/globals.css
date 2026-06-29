@@ -1,26 +1,78 @@
-@import "tailwindcss";
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
+@layer base {
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+  body {
+    font-family: 'Inter', 'Segoe UI', sans-serif;
+  }
+
+  /* Custom Scrollbar */
+  ::-webkit-scrollbar {
+    width: 8px;
+  }
+  ::-webkit-scrollbar-track {
+    background: #1E0F05;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: #E07B39;
+    border-radius: 4px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: #c96a2e;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+@layer components {
+  .container-custom {
+    @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+  }
+
+  .btn-primary {
+    @apply bg-[#E07B39] text-white px-6 py-3 rounded-lg font-semibold 
+           transition-all duration-300 hover:bg-[#c96a2e] 
+           hover:-translate-y-0.5 hover:shadow-lg hover:shadow-[#E07B39]/30;
+  }
+
+  .btn-secondary {
+    @apply bg-transparent text-[#E07B39] px-6 py-3 rounded-lg font-semibold 
+           border-2 border-[#E07B39] transition-all duration-300 
+           hover:bg-[#E07B39] hover:text-white hover:-translate-y-0.5;
+  }
+
+  .recipe-card {
+    @apply bg-white dark:bg-[#1A0F0A] rounded-2xl overflow-hidden 
+           transition-all duration-300 shadow-md hover:shadow-xl 
+           hover:-translate-y-2 hover:shadow-[#E07B39]/15;
+  }
 }
+
+@layer utilities {
+  .text-gradient {
+    @apply bg-gradient-to-r from-[#E07B39] to-[#F5D9B0] 
+           bg-clip-text text-transparent;
+  }
+
+  .bg-gradient-primary {
+    @apply bg-gradient-to-br from-[#2C1A0E] to-[#4A2818];
+  }
+}
+
+/* Steam Animation for Logo */
+@keyframes steam {
+  0%, 100% { opacity: 0; transform: translateY(0); }
+  40% { opacity: 1; transform: translateY(-4px); }
+  80% { opacity: 0; transform: translateY(-8px); }
+}
+.animate-steam { animation: steam 2s ease-in-out infinite; }
+.animate-steam-2 { animation: steam 2s 0.5s ease-in-out infinite; }
+.animate-steam-3 { animation: steam 2s 1s ease-in-out infinite; }
