@@ -10,7 +10,7 @@ export const registerSchema = z
       .regex(/[A-Z]/, 'Must contain at least one uppercase letter')
       .regex(/[a-z]/, 'Must contain at least one lowercase letter'),
     confirmPassword: z.string(),
-    image: z.string().url('Invalid image URL').optional(),
+    image: z.string().url('Invalid image URL').optional().or(z.literal('')),
   })
   .refine((data) => data.password === data.confirmPassword, {
     message: "Passwords don't match",
@@ -34,5 +34,5 @@ export const recipeSchema = z.object({
 
 export const profileSchema = z.object({
   name: z.string().min(2, 'Name must be at least 2 characters'),
-  image: z.string().url('Invalid image URL').optional(),
+  image: z.string().url('Invalid image URL').optional().or(z.literal('')),
 });

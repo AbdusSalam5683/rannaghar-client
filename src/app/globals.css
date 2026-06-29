@@ -1,9 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
-
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
 
 @layer base {
   * {
@@ -12,8 +7,31 @@
     box-sizing: border-box;
   }
 
+  /* ✅ Root Light Mode - Default */
+  :root {
+    --bg-primary: #FDF8F2;
+    --bg-secondary: #ffffff;
+    --bg-card: #ffffff;
+    --text-primary: #2C1A0E;
+    --text-secondary: #6B4A28;
+    --border-color: #E8D5BC;
+  }
+
+  /* ✅ Dark Mode */
+  .dark {
+    --bg-primary: #0A0505;
+    --bg-secondary: #1A0F0A;
+    --bg-card: #1A0F0A;
+    --text-primary: #F5D9B0;
+    --text-secondary: #8A6040;
+    --border-color: #2C1608;
+  }
+
   body {
     font-family: 'Inter', 'Segoe UI', sans-serif;
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
+    transition: background-color 0.3s ease, color 0.3s ease;
   }
 
   /* Custom Scrollbar */
@@ -34,40 +52,131 @@
 
 @layer components {
   .container-custom {
-    @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+    max-width: 1280px;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 1rem;
+    padding-right: 1rem;
   }
 
+  @media (min-width: 640px) {
+    .container-custom {
+      padding-left: 1.5rem;
+      padding-right: 1.5rem;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .container-custom {
+      padding-left: 2rem;
+      padding-right: 2rem;
+    }
+  }
+
+  /* ✅ Buttons */
   .btn-primary {
-    @apply bg-[#E07B39] text-white px-6 py-3 rounded-lg font-semibold 
-           transition-all duration-300 hover:bg-[#c96a2e] 
-           hover:-translate-y-0.5 hover:shadow-lg hover:shadow-[#E07B39]/30;
+    background-color: #E07B39;
+    color: white;
+    padding: 12px 28px;
+    border-radius: 8px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border: none;
+    cursor: pointer;
+  }
+
+  .btn-primary:hover {
+    background-color: #c96a2e;
+    transform: translateY(-2px);
+    box-shadow: 0 10px 30px rgba(224, 123, 57, 0.3);
+  }
+
+  .btn-primary:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: none;
   }
 
   .btn-secondary {
-    @apply bg-transparent text-[#E07B39] px-6 py-3 rounded-lg font-semibold 
-           border-2 border-[#E07B39] transition-all duration-300 
-           hover:bg-[#E07B39] hover:text-white hover:-translate-y-0.5;
+    background: transparent;
+    color: #E07B39;
+    padding: 12px 28px;
+    border-radius: 8px;
+    font-weight: 600;
+    border: 2px solid #E07B39;
+    transition: all 0.3s ease;
+    cursor: pointer;
   }
 
+  .btn-secondary:hover {
+    background: #E07B39;
+    color: white;
+    transform: translateY(-2px);
+  }
+
+  /* ✅ Cards */
   .recipe-card {
-    @apply bg-white dark:bg-[#1A0F0A] rounded-2xl overflow-hidden 
-           transition-all duration-300 shadow-md hover:shadow-xl 
-           hover:-translate-y-2 hover:shadow-[#E07B39]/15;
+    background: var(--bg-card);
+    border-radius: 16px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    border: 1px solid var(--border-color);
+  }
+
+  .dark .recipe-card {
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+  }
+
+  .recipe-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 12px 40px rgba(224, 123, 57, 0.15);
+  }
+
+  /* ✅ Page Backgrounds */
+  .page-bg {
+    background-color: var(--bg-primary);
+    transition: background-color 0.3s ease;
+  }
+
+  .section-bg {
+    background-color: var(--bg-secondary);
+    transition: background-color 0.3s ease;
+  }
+
+  .card-bg {
+    background-color: var(--bg-card);
+    transition: background-color 0.3s ease;
+  }
+
+  /* ✅ Text Colors */
+  .text-primary {
+    color: var(--text-primary);
+  }
+
+  .text-secondary {
+    color: var(--text-secondary);
+  }
+
+  /* ✅ Border Colors */
+  .border-custom {
+    border-color: var(--border-color);
   }
 }
 
 @layer utilities {
   .text-gradient {
-    @apply bg-gradient-to-r from-[#E07B39] to-[#F5D9B0] 
-           bg-clip-text text-transparent;
+    background: linear-gradient(135deg, #E07B39, #F5D9B0);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
   }
 
   .bg-gradient-primary {
-    @apply bg-gradient-to-br from-[#2C1A0E] to-[#4A2818];
+    background: linear-gradient(135deg, #2C1A0E, #4A2818);
   }
 }
 
-/* Steam Animation for Logo */
+/* Steam Animation */
 @keyframes steam {
   0%, 100% { opacity: 0; transform: translateY(0); }
   40% { opacity: 1; transform: translateY(-4px); }
